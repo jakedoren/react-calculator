@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { addNum, divideNum, multiplyNum, subtractNum } from '../helpers/helper.js'
+import { addNum, divideNum, multiplyNum, subtractNum, equalsValidator } from '../helpers/helper.js'
 
 const Calculator = () => {
     const [total, setTotal] = useState()
@@ -11,17 +11,6 @@ const Calculator = () => {
     const [operatorRequested, setOperatorRequested] = useState()
     
     const handleChange = (e) => {
-        // if(numbersUsed.firstNumber == '') {
-        //     setNumbersUsed({
-        //         firstNumber: e.target.value
-        //     })
-        // }
-        // if(numbersUsed != '') {
-        //     setNumbersUsed({
-        //         ...numbersUsed, secondNumber : e.target.value
-        //     })
-        // }
-
         setNumbersUsed({
             ...numbersUsed, [e.target.name] : e.target.value
         })
@@ -29,89 +18,22 @@ const Calculator = () => {
 
     const handleOperator = (e) => {
         e.preventDefault()
-        const num1 = parseInt(numbersUsed.firstNumber)
-        const num2 = parseInt(numbersUsed.secondNumber)
         const origin = e.target.getAttribute("name")
-
         setOperatorRequested(origin)
-
         if(numbersUsed.firstNumber !== '') {
             setOnSecondNumber(true)
         }
-
-        // if(numbersUsed.firstNumber !== '') {
-        //     setNumbersUsed({
-        //         ...numbersUsed, secondNumber : document.getElementById("numb").value
-        //     })
-        // }
-
-        // if(numbersUsed.firstNumber == '') {
-        //     console.log(e.target)
-        //     setNumbersUsed({
-        //         firstNumber: e.target.value
-        //     })
-        // } else if (numbersUsed.firstNumber !== '' && numbersUsed.secondNumber == '') {
-        //     setNumbersUsed({
-        //         ...numbersUsed, secondNumber: e.target.value
-        //     })
-        // } else {
-        //     setNumbersUsed({
-        //         ...numbersUsed, secondNumber: e.target.value
-        //     })
-        // }
-
-        // if(origin === "add") {
-        //     const sum = addNum(num1, num2)
-        //     console.log(num1, num2)
-        //     setTotal(sum)
-        // }
-        // if(origin === "subtract") {
-        //     const total = subtractNum(num1, num2)
-        //     setTotal(total)
-        // }
-        // if(origin === "divide") {
-        //     const total = divideNum(num1, num2)
-        //     setTotal(total)
-        // }
-        // if(origin === "multiply") {
-        //     const total = multiplyNum(num1, num2)
-        //     setTotal(total)
-        // }
     }
 
     const equalsOperator = (e) => {
         e.preventDefault()
         const num1 = parseInt(numbersUsed.firstNumber)
         const num2 = parseInt(numbersUsed.secondNumber)
-        if(operatorRequested === "add") {
-            const sum = addNum(num1, num2)
-            console.log(num1, num2)
-            setTotal(sum)
-            setNumbersUsed({
-                firstNumber : sum
-            })
-        }
-        if(operatorRequested === "subtract") {
-            const total = subtractNum(num1, num2)
-            setTotal(total)
-            setNumbersUsed({
-                firstNumber : total
-            })
-        }
-        if(operatorRequested === "divide") {
-            const total = divideNum(num1, num2)
-            setTotal(total)
-            setNumbersUsed({
-                firstNumber : total
-            })
-        }
-        if(operatorRequested === "multiply") {
-            const total = multiplyNum(num1, num2)
-            setTotal(total)
-            setNumbersUsed({
-                firstNumber : total
-            })
-        }
+        const total = equalsValidator(operatorRequested, num1, num2);
+        setTotal(total)
+        setNumbersUsed({
+            firstNumber : total, secondNumber : ''
+        })
     }
 
     const handleClear = () => {
