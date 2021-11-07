@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { addNum, divideNum, multiplyNum, subtractNum, equalsValidator } from '../helpers/helper.js'
+import { equalsValidator } from '../helpers/helper.js'
 
 const Calculator = () => {
     const [total, setTotal] = useState()
