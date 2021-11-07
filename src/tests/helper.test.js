@@ -1,4 +1,4 @@
-const { addNum, subtractNum, divideNum, multiplyNum } = require('../helpers/helper') 
+const { addNum, subtractNum, divideNum, multiplyNum, equalsValidator } = require('../helpers/helper') 
 
 describe("Helper functions", () => {
 

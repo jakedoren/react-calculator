@@ -42,6 +42,31 @@ const Calculator = () => {
         setOnSecondNumber(false)
     }
 
+    const handleNumbKeyClick = (e) => {
+        const value = e.target.innerText
+        if(!onSecondNumber) {
+            setNumbersUsed((prevState) => ({
+                ...numbersUsed, firstNumber: prevState.firstNumber + value
+            }))
+        } else {
+            setNumbersUsed((prevState) => ({
+                ...numbersUsed, secondNumber: prevState.secondNumber + value
+            }))
+        }
+    }
+
+    useEffect(() => {
+        const numbs = document.querySelectorAll('.number-key')
+        numbs.forEach((num) => {
+            num.addEventListener('click', handleNumbKeyClick)
+        })
+        return () => {
+            numbs.forEach((num) => {
+                num.removeEventListener('click', handleNumbKeyClick)
+            })
+        }
+    }, [handleNumbKeyClick])
+
     return (
         <form>
             <h1>{total}</h1>
@@ -51,27 +76,27 @@ const Calculator = () => {
             <p onClick={(e) => handleOperator(e)} name="multiply" >x</p>
             <p onClick={(e) => equalsOperator(e)} >=</p>
             <p onClick={e => handleClear(e)} >Clear</p>
-            <span>1</span>
+            <span className="number-key">1</span>
             <br></br>
-            <span>2</span>
+            <span className="number-key">2</span>
             <br></br>
-            <span>3</span>
+            <span className="number-key">3</span>
             <br></br>
-            <span>4</span>
+            <span className="number-key">4</span>
             <br></br>
-            <span>5</span>
+            <span className="number-key">5</span>
             <br></br>
-            <span>6</span>
+            <span className="number-key">6</span>
             <br></br>
-            <span>7</span>
+            <span className="number-key">7</span>
             <br></br>
-            <span>8</span>
+            <span className="number-key">8</span>
             <br></br>
-            <span>9</span>
+            <span className="number-key">9</span>
             <br></br>
             <br></br>
             {numbersUsed.firstNumber}
-            <span>+</span>
+            <span>{operatorRequested}</span>
             {numbersUsed.secondNumber}
             <input onChange={(e) => handleChange(e)} name={onSecondNumber ? "secondNumber" : "firstNumber"} placeholder="firstNumb" value={onSecondNumber ? numbersUsed.secondNumber : numbersUsed.firstNumber}></input> 
         </form>
