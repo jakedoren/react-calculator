@@ -87,18 +87,30 @@ const Calculator = () => {
             const sum = addNum(num1, num2)
             console.log(num1, num2)
             setTotal(sum)
+            setNumbersUsed({
+                firstNumber : sum
+            })
         }
         if(operatorRequested === "subtract") {
             const total = subtractNum(num1, num2)
             setTotal(total)
+            setNumbersUsed({
+                firstNumber : total
+            })
         }
         if(operatorRequested === "divide") {
             const total = divideNum(num1, num2)
             setTotal(total)
+            setNumbersUsed({
+                firstNumber : total
+            })
         }
         if(operatorRequested === "multiply") {
             const total = multiplyNum(num1, num2)
             setTotal(total)
+            setNumbersUsed({
+                firstNumber : total
+            })
         }
     }
 
